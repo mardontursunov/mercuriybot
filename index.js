@@ -1,27 +1,64 @@
 const TelegramBot = require('node-telegram-bot-api')
-const TOKEN = '5694161761:AAHfWkatfUqCo1xC1NNMTzEgH6i9NbqCwOA'
+const TOKEN = '6215728518:AAHq4u4nVUV10y1aNKt1TAvkoCMr4-Ym_GY'
 const { findUser, createUser, changeStep, setDistrict, setName, setCourse, setNumber, findAll, setTitle } = require('./model')
 
 const bot = new TelegramBot(TOKEN, {
     polling: true
 })
 
-// -715493396
+// -867039050
 
 bot.on('message', async (message) => {
-    if(message.chat.id != -715493396) {
+    if(message.chat.id != -867039050) {
         const chat_id = message.chat.id
         const name = message.from.name
         const text = message.text
         
         let user = await findUser(chat_id)
-        
+
         if(!user) {
             await createUser(chat_id)
+            await bot.sendMessage(chat_id, `👋Professional video mantajor kursiga xush kelibsiz!
+            ________
+            
+            Kurs asoschisi Asadbek Sodiqov siz uchun 4 ta bepul video dars tayyorladi. Unda, video bozorida qanday qilib muvaffaqiyatli biznesni yaratish mumkinligini bilib olasiz!
+            
+            _
+            
+            Boshlashga tayyor bo’lsangiz quyidagi tugamani bosing👇
+            `, {
+                parse_mode: "HTML",
+                reply_markup: {
+                    keyboard: [
+                        [
+                            {
+                                text: "Tayyorman🚀",
+                                one_time_keyboard: true
+                            }
+                        ]
+                    ],
+                    one_time_keyboard: true,
+                    resize_keyboard: true
+                }
+            })
+        } else if(user.step == 1) {
+            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
+                disable_web_page_preview: false
+            })
+            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
+                disable_web_page_preview: false
+            })
+            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
+                disable_web_page_preview: false
+            })
+            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
+                disable_web_page_preview: false
+            })
             await bot.sendMessage(chat_id, "<b>To'liq ismingizni kiriting</b>", {
                 parse_mode: "HTML"
             })
-        } else if(user.step == 1) {
+            await changeStep(chat_id, 2)
+        } else if(user.step == 2) {
             try {
                 await setName(chat_id, text)
                 await bot.sendMessage(chat_id, `<b>Telefon raqamingizni yuboring</b>`, {
@@ -43,7 +80,7 @@ bot.on('message', async (message) => {
                     
                 })
                 
-                await changeStep(chat_id, 2)
+                await changeStep(chat_id, 3)
             } catch (error) {
                 console.log(error);
             }
@@ -54,7 +91,7 @@ bot.on('message', async (message) => {
                 await bot.sendMessage(chat_id, `Botga obuna bo'lganlar: <b>${users.length} ta</b>`, {
                     parse_mode: "HTML"
                 })
-            } else if(message.text != '/xabar') {
+            } else if(message.text != '/xabar' && typeof(message.text) == 'number') {
                     await bot.sendMessage(chat_id, "Siz ro'yxatdan o'tgansiz!")
             } else if(text == '/xabar' && (message.from.id == 999934996)) {
                 await bot.sendMessage(message.chat.id, `1. Reklama sarlavhasi oddiy shaklda yozing.
@@ -89,13 +126,13 @@ bot.on('message', async (message) => {
                     try {
                         count += 1
                         if(message.reply_markup) {
-                            await bot.copyMessage(users[i].chat_id, -1001801747698, message.forward_from_message_id, {
+                            await bot.copyMessage(users[i].chat_id, -1001932673403, message.forward_from_message_id, {
                                 reply_markup: message.reply_markup,
                                 caption: `${user.title} ${users[i].name}
 ${message.caption}`,
                             })
                         } else {
-                            await bot.copyMessage(users[i].chat_id, -1001801747698, message.forward_from_message_id, {
+                            await bot.copyMessage(users[i].chat_id, -1001932673403, message.forward_from_message_id, {
                                 caption: `${user.title} <b>${users[i].name}</b>
                                 
 ${message.caption}`,
@@ -135,15 +172,15 @@ ${message.caption}`,
 bot.on('contact', async (data) => {
     let user = await findUser(data.contact.user_id)
         setNumber(user.chat_id, data.contact.phone_number)
-    if(user.step == 2) {
-        await bot.sendMessage(-715493396, `👤 Ismi: <b>${user.name}</b>
+    if(user.step == 3) {
+        await bot.sendMessage(-867039050, `👤 Ismi: <b>${user.name}</b>
 ☎️ Telefon raqam: <b>${String(data.contact.phone_number)}</b>`, {
             parse_mode: "HTML"
         })
-        await bot.sendPhoto(user.chat_id, "./notif-img.jpeg", {
+        await bot.sendPhoto(user.chat_id, "./photo_2023-03-17 19.55.11.jpeg", {
             caption: `Hurmatli <b>${user.name}</b>
             
-<b>Notif.uz</b> kompaniyasining rasmiy ro'yxatdan o'tkazuvchi botiga muvaffaqiyatli obuna bo’ldingiz✅`,
+<b>Mercuriy One</b> kursining rasmiy ro'yxatdan o'tkazuvchi botiga muvaffaqiyatli obuna bo’ldingiz✅`,
             parse_mode: "HTML"
         })
         await changeStep(user.chat_id, 3)
