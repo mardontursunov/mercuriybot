@@ -42,18 +42,8 @@ bot.on('message', async (message) => {
                 }
             })
         } else if(user.step == 1) {
-            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
-                disable_web_page_preview: false
-            })
-            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
-                disable_web_page_preview: false
-            })
-            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
-                disable_web_page_preview: false
-            })
-            await bot.sendMessage(chat_id, "https://www.youtube.com/watch?v=tR10RO97u2E&t=658s", {
-                disable_web_page_preview: false
-            })
+            // let video1 = fs.path('./notifregbot/1.mp4');
+            await bot.sendVideo(chat_id, "https://vimeo.com/794242725")
             await bot.sendMessage(chat_id, "<b>To'liq ismingizni kiriting</b>", {
                 parse_mode: "HTML"
             })
