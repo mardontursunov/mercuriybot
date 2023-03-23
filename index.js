@@ -43,7 +43,7 @@ bot.on('message', async (message) => {
             })
         } else if(user.step == 1) {
             // let video1 = fs.path('./notifregbot/1.mp4');
-            await bot.sendVideo(chat_id, "https://vimeo.com/794242725")
+            await bot.sendVideo(chat_id, "AAMCAgADGQEAARSXQ2QcNZZmT_6s-rqp139ICD9QyDwPAAKCMAAC61nYSEvb-giT-j9ZAQAHbQADLwQ")
             await bot.sendMessage(chat_id, "<b>To'liq ismingizni kiriting</b>", {
                 parse_mode: "HTML"
             })
