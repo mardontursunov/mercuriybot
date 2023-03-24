@@ -6,33 +6,31 @@ const bot = new TelegramBot(TOKEN, {
     polling: true
 })
 
-// -867039050
+// -993869924
 
 bot.on('message', async (message) => {
-    if(message.chat.id != -867039050) {
+    if(message.chat.id != -993869924) {
         const chat_id = message.chat.id
         const name = message.from.name
         const text = message.text
+        console.log(message)
         
         let user = await findUser(chat_id)
 
         if(!user) {
             await createUser(chat_id)
-            await bot.sendMessage(chat_id, `👋Professional video mantajor kursiga xush kelibsiz!
-            ________
+            await bot.sendMessage(chat_id, `👋 Professional video montajor kursiga xush kelibsiz!
             
-            Kurs asoschisi Asadbek Sodiqov siz uchun 4 ta bepul video dars tayyorladi. Unda, video bozorida qanday qilib muvaffaqiyatli biznesni yaratish mumkinligini bilib olasiz!
-            
-            _
-            
-            Boshlashga tayyor bo’lsangiz quyidagi tugamani bosing👇
+Kurs asoschisi Asadbek Sodiqov siz uchun 4 ta bepul video dars tayyorladi. Unda, video bozorida qanday qilib muvaffaqiyatli biznesni yaratish mumkinligini bilib olasiz!
+                        
+Boshlashga tayyor bo’lsangiz quyidagi tugamani bosing 👇
             `, {
                 parse_mode: "HTML",
                 reply_markup: {
                     keyboard: [
                         [
                             {
-                                text: "Tayyorman🚀",
+                                text: "Tayyorman 🚀",
                                 one_time_keyboard: true
                             }
                         ]
@@ -43,8 +41,20 @@ bot.on('message', async (message) => {
             })
         } else if(user.step == 1) {
             // let video1 = fs.path('./notifregbot/1.mp4');
-            await bot.sendVideo(chat_id, "AAMCAgADGQEAARSXQ2QcNZZmT_6s-rqp139ICD9QyDwPAAKCMAAC61nYSEvb-giT-j9ZAQAHbQADLwQ")
-            await bot.sendMessage(chat_id, "<b>To'liq ismingizni kiriting</b>", {
+            await bot.sendVideo(chat_id, 'BAACAgIAAxkBAAMGZB2E7vjYKndl338BpaQSTVmCzPgAAvUoAAIXS8BITmlCPEUFAUYvBA', {
+                caption: "Video hamda video montajorning ahamiyatliligi!" 
+            })
+            await bot.sendVideo(chat_id, 'BAACAgIAAxkBAAMKZB2FIestWqTE2wPwc_gsSBi7frEAAk4tAAJlHNFIqqTxKvCaWCcvBA', {
+                caption: "Video montajorning O’zbekiston va frilans bozorida rivojlanish yo’llari"
+            })
+            await bot.sendVideo(chat_id, 'BAACAgIAAxkBAAMMZB2FOyiK_YbLuA6SY5Z7RAcIMkMAAt4uAAJtCchIZ5O8JhAWVJIvBA', {
+                caption: "Kursdagi imkoniyatlar!"
+            })
+            await bot.sendVideo(chat_id, 'BAACAgIAAxkBAAMNZB2FUOyWHkVLjVAdMAJusguzlcUAAggpAAIXS8BIJ9tqfWcj3nwvBA', {
+                caption: "Nima uchun aynan hozir?"
+            })
+
+            await bot.sendMessage(chat_id, "<b>Ro'yxatdan o'tish uchun, to'liq ismingizni kiriting</b>", {
                 parse_mode: "HTML"
             })
             await changeStep(chat_id, 2)
@@ -163,7 +173,7 @@ bot.on('contact', async (data) => {
     let user = await findUser(data.contact.user_id)
         setNumber(user.chat_id, data.contact.phone_number)
     if(user.step == 3) {
-        await bot.sendMessage(-867039050, `👤 Ismi: <b>${user.name}</b>
+        await bot.sendMessage(-993869924, `👤 Ismi: <b>${user.name}</b>
 ☎️ Telefon raqam: <b>${String(data.contact.phone_number)}</b>`, {
             parse_mode: "HTML"
         })
